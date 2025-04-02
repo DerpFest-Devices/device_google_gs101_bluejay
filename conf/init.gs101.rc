@@ -598,6 +598,8 @@ on property:sys.boot_completed=1
     write /proc/sys/vm/swappiness 60
 
     write /sys/kernel/vendor_mm/kswapd_cpu_affinity 7f
+    
+    write /sys/kernel/vendor_mm/kcompactd_cpu_affinity 7f
 
     # Force empty CMA
     write /sys/kernel/vendor_mm/cma/farawimg/force_empty 1
