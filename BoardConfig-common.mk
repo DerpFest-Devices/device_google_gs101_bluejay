@@ -47,6 +47,7 @@ BOARD_KERNEL_CMDLINE += swiotlb=noforce
 BOARD_KERNEL_CMDLINE += cgroup.memory=nokmem
 BOARD_KERNEL_CMDLINE += irqaffinity=0-3
 BOARD_KERNEL_CMDLINE += mitigations=off
+BOARD_KERNEL_CMDLINE += nowatchdog nmi_watchdog=0
 BOARD_BOOTCONFIG += androidboot.boot_devices=14700000.ufs
 
 TARGET_NO_BOOTLOADER := true
