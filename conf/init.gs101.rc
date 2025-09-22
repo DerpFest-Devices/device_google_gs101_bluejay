@@ -13,8 +13,8 @@ on init
 
     # Set teo as cpu idle governor
     write /sys/devices/system/cpu/cpuidle/current_governor teo
-    # Disable util-awareness
-    write /proc/vendor_sched/teo_util_threshold "1024 1024 1024"
+    # Disable util-awareness for mids and bigs
+    write /proc/vendor_sched/teo_util_threshold "2 1024 1024"
 
     chown system system /sys/devices/system/cpu/cpufreq/policy0/sched_pixel/lcpi_threshold
     chown system system /sys/devices/system/cpu/cpufreq/policy0/sched_pixel/spc_threshold
@@ -245,14 +245,22 @@ on init
     write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu5_memlat@17000010/polling_interval 10
     write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu6_memlat@17000010/polling_interval 10
     write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu7_memlat@17000010/polling_interval 10
-    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu0_memlat@17000010/mem_latency/ratio_ceil 400
-    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu1_memlat@17000010/mem_latency/ratio_ceil 400
-    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu2_memlat@17000010/mem_latency/ratio_ceil 400
-    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu3_memlat@17000010/mem_latency/ratio_ceil 400
-    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu4_memlat@17000010/mem_latency/ratio_ceil 2700
-    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu5_memlat@17000010/mem_latency/ratio_ceil 2700
-    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu6_memlat@17000010/mem_latency/ratio_ceil 3200
-    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu7_memlat@17000010/mem_latency/ratio_ceil 3200
+    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu0_memlat@17000010/mem_latency/ratio_ceil 3800
+    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu1_memlat@17000010/mem_latency/ratio_ceil 3800
+    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu2_memlat@17000010/mem_latency/ratio_ceil 3800
+    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu3_memlat@17000010/mem_latency/ratio_ceil 3800
+    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu4_memlat@17000010/mem_latency/ratio_ceil 3500
+    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu5_memlat@17000010/mem_latency/ratio_ceil 3500
+    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu6_memlat@17000010/mem_latency/ratio_ceil 3500
+    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu7_memlat@17000010/mem_latency/ratio_ceil 4800
+    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu0_memlat@17000010/mem_latency/stall_floor 3000
+    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu1_memlat@17000010/mem_latency/stall_floor 3000
+    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu2_memlat@17000010/mem_latency/stall_floor 3000
+    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu3_memlat@17000010/mem_latency/stall_floor 3000
+    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu4_memlat@17000010/mem_latency/stall_floor 2400
+    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu5_memlat@17000010/mem_latency/stall_floor 2400
+    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu6_memlat@17000010/mem_latency/stall_floor 2400
+    write /sys/class/devfreq/gs_memlat_devfreq:devfreq_mif_cpu7_memlat@17000010/mem_latency/stall_floor 500
 
     # Set boost_adpf_prio, -1 by default
     write /proc/vendor_sched/boost_adpf_prio ${persist.device_config.vendor_system_native_boot.boost_adpf_prio:--1}
@@ -672,16 +680,21 @@ on property:sys.boot_completed=1
     write /proc/vendor_sched/uclamp_max_filter_enable 1
 
     # Set PMU freq limit parameters
-    write /sys/devices/system/cpu/cpufreq/policy0/sched_pixel/lcpi_threshold 2
-    write /sys/devices/system/cpu/cpufreq/policy0/sched_pixel/spc_threshold 59
-    write /sys/devices/system/cpu/cpufreq/policy0/sched_pixel/limit_frequency 9999999
-    write /sys/devices/system/cpu/cpufreq/policy4/sched_pixel/lcpi_threshold 6
-    write /sys/devices/system/cpu/cpufreq/policy4/sched_pixel/spc_threshold 64
-    write /sys/devices/system/cpu/cpufreq/policy4/sched_pixel/limit_frequency 9999999
-    write /sys/devices/system/cpu/cpufreq/policy6/sched_pixel/lcpi_threshold 5
-    write /sys/devices/system/cpu/cpufreq/policy6/sched_pixel/spc_threshold 69
-    write /sys/devices/system/cpu/cpufreq/policy6/sched_pixel/limit_frequency 9999999
-    write /proc/vendor_sched/pmu_poll_time 10
+    write /sys/devices/system/cpu/cpufreq/policy0/sched_pixel/lcpi_threshold 0
+    write /sys/devices/system/cpu/cpufreq/policy0/sched_pixel/spc_threshold 76
+    write /sys/devices/system/cpu/cpufreq/policy0/sched_pixel/limit_frequency 1328000
+    write /sys/devices/system/cpu/cpufreq/policy4/sched_pixel/lcpi_threshold 0
+    write /sys/devices/system/cpu/cpufreq/policy4/sched_pixel/spc_threshold 73
+    write /sys/devices/system/cpu/cpufreq/policy4/sched_pixel/limit_frequency 1826000
+    write /sys/devices/system/cpu/cpufreq/policy6/sched_pixel/lcpi_threshold 0
+    write /sys/devices/system/cpu/cpufreq/policy6/sched_pixel/spc_threshold 68
+    write /sys/devices/system/cpu/cpufreq/policy6/sched_pixel/limit_frequency 2363000
+
+    # Disable PMU freq limit
+    write /sys/devices/system/cpu/cpufreq/policy0/sched_pixel/pmu_limit_enable 1
+    write /sys/devices/system/cpu/cpufreq/policy4/sched_pixel/pmu_limit_enable 1
+    write /sys/devices/system/cpu/cpufreq/policy6/sched_pixel/pmu_limit_enable 1
+    write /proc/vendor_sched/pmu_poll_enable 0
 
     # gvotables for dumpstate
     chown system system /sys/kernel/debug/gvotables
@@ -756,6 +769,7 @@ service storageproxyd /vendor/bin/storageproxyd -d /dev/trusty-ipc-dev0 \
     class early_hal
     user system
     group system
+    task_profiles MaxPerformance
 
 # Write build info to kdebuginfo
 on property:ro.build.fingerprint=*
