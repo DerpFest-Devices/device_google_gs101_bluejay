@@ -9,6 +9,9 @@
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.media.omx=0
 
+# Camera
+$(call inherit-product-if-exists, vendor/google/camera/config.mk)
+
 # Installs gsi keys into ramdisk, to boot a developer GSI with verified boot.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/developer_gsi_keys.mk)
 
